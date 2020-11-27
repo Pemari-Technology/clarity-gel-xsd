@@ -1,0 +1,52 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="jelly:com.niku.union.gel.FTPTagLibrary" elementFormDefault="qualified">
+
+    <xs:element name="get">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="filename" type="xs:string" use="required" />
+            <xs:attribute name="remoteDir" type="xs:int" use="required" />
+            <xs:attribute name="localDir" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="open">
+        <xs:complexType mixed="true">
+            <xs:choice>
+                <xs:element name="get" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="put" minOccurs="0" maxOccurs="unbounded" />
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="hostname" type="xs:string" use="required" />
+            <xs:attribute name="port" type="xs:int" />
+            <xs:attribute name="user" type="xs:string" use="required" />
+            <xs:attribute name="password" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="put">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="filename" type="xs:string" use="required" />
+            <xs:attribute name="remoteDir" type="xs:int" use="required" />
+            <xs:attribute name="localDir" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+            <xs:attribute name="delimiter" type="xs:string" />
+            <xs:attribute name="embedded" type="xs:boolean" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

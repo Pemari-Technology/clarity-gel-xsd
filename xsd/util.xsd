@@ -1,0 +1,114 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="jelly:util" elementFormDefault="qualified">
+
+    <xs:element name="available">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="file" type="xs:string" />
+            <xs:attribute name="uri" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="file">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+           <xs:attribute name="name" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="loadText">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="encoding" type="xs:string" />
+            <xs:attribute name="file" type="xs:string" />
+            <xs:attribute name="uri" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="properties">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="file" type="xs:string" />
+            <xs:attribute name="uri" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="replace">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="new" type="xs:string" />
+            <xs:attribute name="newChar" type="xs:string" />
+            <xs:attribute name="old" type="xs:string" />
+            <xs:attribute name="oldChar" type="xs:string" />
+            <xs:attribute name="value" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="sleep">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="millis" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="sort">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="items" type="xs:string" />
+            <xs:attribute name="property" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="tokenize">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="delim" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

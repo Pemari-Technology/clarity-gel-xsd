@@ -1,0 +1,346 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="jelly:com.niku.union.gel.GELTagLibrary" elementFormDefault="qualified">
+
+    <xs:element name="callPMD">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element name="pmdParameter" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType mixed="true">
+                        <xs:sequence>
+                            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                        <xs:attribute name="escapeText" type="xs:boolean" />
+                        <xs:attribute name="trim" type="xs:boolean" />
+                        <xs:attribute name="context" type="xs:string" />
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                        <xs:attribute name="value" type="xs:string" use="required" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="pmdId" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="email">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="from" type="xs:string" />
+            <xs:attribute name="fromName" type="xs:string" />
+            <xs:attribute name="to" type="xs:string" />
+            <xs:attribute name="subject" type="xs:string" />
+            <xs:attribute name="smtpHost" type="xs:string" />
+            <xs:attribute name="serverUsername" type="xs:string" />
+            <xs:attribute name="serverPassword" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="expr">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="select" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="fileList">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="dir" type="xs:string" use="required" />
+            <xs:attribute name="var" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="formatDate">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="format" type="xs:string" />
+            <xs:attribute name="stringVar" type="xs:string" />
+            <xs:attribute name="dateVar" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="forEach">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="select" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getDocument">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="include">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="select" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="log">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="category" type="xs:string" />
+            <xs:attribute name="level">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="INFO"></xs:enumeration>
+                        <xs:enumeration value="WARN"></xs:enumeration>
+                        <xs:enumeration value="ERROR"></xs:enumeration>
+                        <xs:enumeration value="DEBUG"></xs:enumeration>
+                        <xs:enumeration value="FATAL"></xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="message" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="notify">
+        <xs:annotation>
+            <xs:documentation>Use this tag to send email. The email content is the text content of this tag, followed by process messages that are logged so far during the current process. Email server information is derived from the properties.xml file of the installation.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="from" type="xs:string" use="required" />
+            <xs:attribute name="fromName" type="xs:string" />
+            <xs:attribute name="to" type="xs:string" use="required" />
+            <xs:attribute name="subject" type="xs:string" />
+            <xs:attribute name="level">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="WARN"></xs:enumeration>
+                        <xs:enumeration value="ERROR"></xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="nsqlQuery">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="nsqlParameter" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType mixed="true">
+                        <xs:sequence>
+                            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                        <xs:attribute name="escapeText" type="xs:boolean" />
+                        <xs:attribute name="trim" type="xs:boolean" />
+                        <xs:attribute name="context" type="xs:string" />
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                        <xs:attribute name="value" type="xs:string" use="required" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="queryId" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="out">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="parameter">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="default" type="xs:string" />
+            <xs:attribute name="secure" type="xs:boolean" />
+            <xs:attribute name="var" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="parse">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="file" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="parseDate">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="format" type="xs:string" />
+            <xs:attribute name="stringVar" type="xs:string" />
+            <xs:attribute name="dateVar" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="passwd">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="select" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="persist">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="scope">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="GLOBAL"></xs:enumeration>
+                        <xs:enumeration value="PROCESS"></xs:enumeration>
+                        <xs:enumeration value="INSTANCE"></xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="value" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="script">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="context" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="serialize">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="fileName" type="xs:string" use="required" />
+            <xs:attribute name="var" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="set">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="asString" type="xs:boolean" />
+            <xs:attribute name="insert" type="xs:boolean" />
+            <xs:attribute name="select" type="xs:string" use="required" />
+            <xs:attribute name="value" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="setDataSource">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="dbId" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="setDocument">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

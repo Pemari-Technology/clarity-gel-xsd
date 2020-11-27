@@ -1,0 +1,128 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:sql="jelly:sql" targetNamespace="jelly:sql" elementFormDefault="qualified">
+
+    <xs:complexType name="dateParamType" mixed="true">
+        <xs:sequence>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="escapeText" type="xs:boolean" />
+        <xs:attribute name="trim" type="xs:boolean" />
+        <xs:attribute name="context" type="xs:string" />
+        <xs:attribute name="type" type="xs:string" />
+        <xs:attribute name="value" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="paramType" mixed="true">
+        <xs:sequence>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="escapeText" type="xs:boolean" />
+        <xs:attribute name="trim" type="xs:boolean" />
+        <xs:attribute name="context" type="xs:string" />
+        <xs:attribute name="value" type="xs:string" />
+    </xs:complexType>
+
+    <xs:element name="driver">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="driver" type="xs:string" />
+            <xs:attribute name="jdbcURL" type="xs:string" />
+            <xs:attribute name="scope" type="xs:string" />
+            <xs:attribute name="userName" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="query">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element name="dateParam" type="sql:dateParamType" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="param" type="sql:paramType" minOccurs="0" maxOccurs="unbounded" />
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="dataSource" type="xs:string" />
+            <xs:attribute name="maxRows" type="xs:string" />
+            <xs:attribute name="sql" type="xs:string" />
+            <xs:attribute name="startRow" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="resultSet">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="row" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="row">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="setDataSource">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="driver" type="xs:string" />
+            <xs:attribute name="password" type="xs:string" />
+            <xs:attribute name="scope" type="xs:string" />
+            <xs:attribute name="url" type="xs:string" />
+            <xs:attribute name="user" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="transaction">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="dataSource" type="xs:string" />
+            <xs:attribute name="isolation" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="update">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element name="dateParam" type="sql:dateParamType" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="param" type="sql:paramType" minOccurs="0" maxOccurs="unbounded" />
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="dataSource" type="xs:string" />
+            <xs:attribute name="scope" type="xs:string" />
+            <xs:attribute name="sql" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

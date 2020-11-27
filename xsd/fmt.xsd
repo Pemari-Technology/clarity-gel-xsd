@@ -1,0 +1,115 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="jelly:fmt" elementFormDefault="qualified">
+
+    <xs:element name="bundle">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element name="message" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="basename" type="xs:string" />
+            <xs:attribute name="prefix" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="formatDate">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="dateStyle" type="xs:string" />
+            <xs:attribute name="pattern" type="xs:string" />
+            <xs:attribute name="timeStyle" type="xs:string" />
+            <xs:attribute name="timeZone" type="xs:string" />
+            <xs:attribute name="type" type="xs:string" />
+            <xs:attribute name="value" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="message">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="bundle" type="xs:string" />
+            <xs:attribute name="key" type="xs:string" />
+            <xs:attribute name="scope" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="param">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="value" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="setBundle">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="baseName" type="xs:string" />
+            <xs:attribute name="scope" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="setLocale">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="scope" type="xs:string" />
+            <xs:attribute name="value" type="xs:string" />
+            <xs:attribute name="variant" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="setTimeZone">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="scope" type="xs:string" />
+            <xs:attribute name="value" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="timeZone">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="value" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

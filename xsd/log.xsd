@@ -1,0 +1,49 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:log="jelly:log" targetNamespace="jelly:log" elementFormDefault="qualified">
+    <xs:complexType name="logType" mixed="true">
+        <xs:sequence>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="escapeText" type="xs:boolean" />
+        <xs:attribute name="trim" type="xs:boolean" />
+        <xs:attribute name="encode" type="xs:boolean"><xs:annotation>
+            <xs:documentation>Sets whether the body of the tag should be encoded as text (so that lt and gt are encoded as &lt; and &gt;) or leave the text as XML which is the default.</xs:documentation>
+        </xs:annotation></xs:attribute>
+        <xs:attribute name="log" type="xs:string"><xs:annotation>
+            <xs:documentation>Sets the Log instance to use for logging.</xs:documentation>
+        </xs:annotation></xs:attribute>
+        <xs:attribute name="name" type="xs:string"><xs:annotation>
+            <xs:documentation>Sets the name of the logger to use</xs:documentation>
+        </xs:annotation></xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="debug" type="log:logType">
+        <xs:annotation>
+            <xs:documentation>A tag which generates DEBUG level logging statement using the given category name.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="error" type="log:logType">
+        <xs:annotation>
+            <xs:documentation>A tag which generates ERROR level logging statement using the given category name.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="fatal" type="log:logType">
+        <xs:annotation>
+            <xs:documentation>A tag which generates FATAL level logging statement using the given category name.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="info" type="log:logType">
+        <xs:annotation>
+            <xs:documentation>A tag which generates INFO level logging statement using the given category name.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="trace" type="log:logType">
+        <xs:annotation>
+            <xs:documentation>A tag which generates TRACE level logging statement using the given category name.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="warn" type="log:logType">
+        <xs:annotation>
+            <xs:documentation>A tag which generates WRN level logging statement using the given category name.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+</xs:schema>

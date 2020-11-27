@@ -1,0 +1,718 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jelly="jelly:core" targetNamespace="jelly:core" elementFormDefault="qualified">
+
+    <xs:complexType name="argType">
+        <xs:annotation>
+            <xs:documentation>An argument to a org.apache.commons.jelly.tags.core.NewTag or org.apache.commons.jelly.tags.core.InvokeTag.</xs:documentation>
+            <xs:appinfo>This tag MUST be enclosed within an org.apache.commons.jelly.tags.core.ArgTagParentimplementation.</xs:appinfo>
+        </xs:annotation>
+        <xs:attribute name="escapeText" type="xs:boolean" />
+        <xs:attribute name="trim" type="xs:boolean" />
+        <xs:attribute name="context" type="xs:string" />
+        <xs:attribute name="classLoader" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Set the class loader to be used for instantiating application objects when required.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="type" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>The name of the argument class or type, if any.  This may be a fully specified class name ora primitive type name( boolean , int , double , etc.).</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="useContextClassLoader" type="xs:boolean">
+            <xs:annotation>
+                <xs:documentation>Determine whether to use the Context ClassLoader (the one found bycalling Thread.currentThread().getContextClassLoader() )to resolve/load classes. If not using Context ClassLoader, then the class-loading defaults tousing the calling-class' ClassLoader.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="value" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>The (possibly null) value of this argument.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="break">
+        <xs:annotation>
+            <xs:documentation>A tag which terminates the execution of the current forEach or while loop. This tag can take an optional boolean test attribute which if its true then the break occurs otherwise the loop continues processing.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="test" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the Jelly expression to evaluate (optional).  If this is null or evaluates to true then the loop is terminated</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="var" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the variable name to export indicating if the item was broken.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="catch">
+        <xs:annotation>
+            <xs:documentation>A tag which catches exceptions thrown by its body.  This allows conditional logic to be performed based on if exceptions are thrown or to do some kind of custom exception logging logic.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Sets the name of the variable which is exposed with the Exception that gets thrown by evaluating the body of this tag or which is set to null if there is no exception thrown.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="choose">
+        <xs:annotation>
+            <xs:documentation>A tag which conditionally evaluates its body based on some condition</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="when">
+                    <xs:annotation>
+                        <xs:documentation>A tag which conditionally evaluates its body based on some condition</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType mixed="true">
+                        <xs:sequence>
+                            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                        <xs:attribute name="escapeText" type="xs:boolean" />
+                        <xs:attribute name="trim" type="xs:boolean" />
+                        <xs:attribute name="context" type="xs:string" />
+                        <xs:attribute name="test" type="xs:string" use="required" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="otherwise">
+                    <xs:annotation>
+                        <xs:documentation>The otherwise block of a choose/when/otherwise group of tags</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType mixed="true">
+                        <xs:sequence>
+                            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                        <xs:attribute name="escapeText" type="xs:boolean" />
+                        <xs:attribute name="trim" type="xs:boolean" />
+                        <xs:attribute name="context" type="xs:string" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="expr">
+        <xs:annotation>
+            <xs:documentation>A tag which evaluates an expression</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="value" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the name of the variable which is exposed with the ExSets the Jexl expression to evaluate.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="file">
+        <xs:annotation>
+            <xs:documentation>A tag that pipes its body to a file denoted by the name attribute or to an in memory String which is then output to a variable denoted by the var variable.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="append" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Sets whether to append at the end of the file (not really something you normally do with an XML file).</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="encoding" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the XML encoding mode, which defaults to UTF-8</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the file name for the output</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="omitXmlDeclaration" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Sets whether the XML declaration should be output or not</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="outputMode" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the output mode, whether XML or HTML</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="prettyPrint" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Sets whether pretty printing mode is turned on. The default is off so that whitespace is preserved</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="var" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the var.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="forEach">
+        <xs:annotation>
+            <xs:documentation>Iterates over a collection, iterator or an array of objects.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Sets whether whitespace inside this tag should be trimmed or not.  Defaults to true so whitespace is trimmed</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="begin" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the starting index value</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="end" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the ending index value</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="indexVar" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the variable name to export the current index counter to</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="items" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the expression used to iterate over.  This expression could resolve to an Iterator, Collection, Map, Array,Enumeration or comma separated String.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="step" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the index increment step</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="var" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the variable name to export for the item being iterated over</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="varStatus" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getStatic">
+        <xs:annotation>
+            <xs:documentation>A tag which can retrieve the value of a static field of a given class.  The following attributes are required: 
+                var - The variable to which to assign the resulting value.
+                field - The name of the static field to retrieve.
+                className - The name of the class containing the static field.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="className" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Sets the fully qualified name of the class containing the static field.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="field" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Sets the name of the field to retrieve.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="var" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Sets the name of the variable exported by this tag.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="if">
+        <xs:annotation>
+            <xs:documentation>A tag which conditionally evaluates its body based on some condition</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="test" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Sets the name of the variable exported by this tag.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="import">
+        <xs:annotation>
+            <xs:documentation>Imports another script. By default, the imported script does not have access to the parent script's variable context. This behaviour may be modified using the inherit attribute.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="file" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the file for the script to evaluate.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="inherit" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Sets whether property inheritence is enabled or disabled</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="url" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the URI (relative URI or absolute URL) for the script to evaluate.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="include">
+        <xs:annotation>
+            <xs:documentation>A tag which conditionally evaluates its body based on some condition</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="export" type="xs:string" />
+            <xs:attribute name="file" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the file to be included which is either an absolute file or a filerelative to the current directory</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="inherit" type="xs:string" />
+            <xs:attribute name="uri" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the URI (relative URI or absolute URL) for the script to evaluate.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="invoke">
+        <xs:annotation>
+            <xs:documentation>A tag which calls a method in an object instantied by core:new</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="arg" type="jelly:argType" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="exceptionVar" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the name of a variable that exports the exception thrown bythe method's invocation (if any)</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="method" type="xs:string" use="required" />
+            <xs:attribute name="on" type="xs:string" use="required" />
+            <xs:attribute name="var" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Sets the name of the variable exported by this tag</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="invokeStatic">
+        <xs:annotation>
+            <xs:documentation>A Tag which can invoke a static method on a class, without an instance of the class being needed. Like the             
+                org.apache.commons.jelly.tags.core.InvokeTag, this tag can take a set of arguments using the org.apache.commons.jelly.tags.core.ArgTag.
+                The following attributes are required:            
+                var - The variable to assign the return of the method call to
+                method - The name of the static method to invoke
+                className - The name of the class containing the static method</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="arg" type="jelly:argType" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="className" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Sets the fully qualified class name containing the static method</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="exceptionVar" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the name of a variable that exports the exception thrown bythe method's invocation (if any)</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="method" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Sets the name of the method to invoke</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="var" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Sets the name of the variable exported by this tag</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="jelly">
+        <xs:annotation>
+            <xs:documentation>The root Jelly tag which should be evaluated first</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="mute">
+        <xs:annotation>
+            <xs:documentation>A tag which executes its body but passing no output. Using this tag will still take the time to perform toString on each objectreturned to the output (but this toString value is discarded.  A future version should go more internally so that this is avoided.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="new">
+        <xs:annotation>
+            <xs:documentation>A tag which creates a new object of the given type</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="arg" type="jelly:argType" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="classLoader" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Set the class loader to be used for instantiating application objects when required.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="className" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Sets the class name of the object to instantiate</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="useContextClassLoader" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Determine whether to use the Context ClassLoader (the one found by calling Thread.currentThread().getContextClassLoader() )to resolve/load classes. If not using Context ClassLoader, then the class-loading defaults to using the calling-class' ClassLoader.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="var" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Sets the name of the variable exported by this tag</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="parse">
+        <xs:annotation>
+            <xs:documentation>Parses the output of this tags body or of a given String as a Jelly script then either outputting the Script as a variable or executing the script.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="XMLReader" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the XMLReader used for parsing</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="jellyParser" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the jellyParser.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="text" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the text to be parsed by this parser</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="var" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the variable name that will be used for the Document variable created</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="remove">
+        <xs:annotation>
+            <xs:documentation>A tag which removes the variable of the given name from the current variable scope.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Sets the name of the variable which will be removed by this tag.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="scope">
+        <xs:annotation>
+            <xs:documentation>A tag which creates a new child variable scope for its body.  So any variables defined within its body will no longer be in scope after this tag.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="set">
+        <xs:annotation>
+            <xs:documentation>A tag which sets a variable from the result of an expression</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="defaultValue" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the default value to be used if the value exprsesion results in a null value or blank String</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="encode" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Sets whether the body of the tag should be XML encoded as text (so that &lt; and &gt; are encoded as &lt; and &gt;) or leave the text as XML which is the default.  This is only used if this tag is specified with no value so that the text body of thistag is used as the body.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="property" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the name of the property to set on the target object.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="scope" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the variable scope for this variable. For example setting this value to 'parent' will set this value in the parent scope. When Jelly is run from inside a Servlet environmentthen other scopes will be available such as 'request', 'session' or 'application'.  Other applications may implement their own custom scopes.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="target" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the target object on which to set a property.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="value" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the expression to evaluate.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="var" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the variable name to define for this expression</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="setProperties">
+        <xs:annotation>
+            <xs:documentation>A tag which sets the bean properties on the given bean.  This tag can also be nested inside a bean tag such as the useBean tag or a JellySwing tag to set one or more properties, maybe inside some conditional logic.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:anyAttribute />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="switch">
+        <xs:annotation>
+            <xs:documentation>Executes the child case tag whose value equals my on attribute.Executes a child default tag when present and no case tag has yet matched.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="case">
+                    <xs:annotation>
+                        <xs:documentation>A tag which conditionally evaluates its body if my value attribute equals my ancestor switch tag's "on" attribute.  This tag must be contained within the body of some switch tag.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                        <xs:attribute name="escapeText" type="xs:boolean" />
+                        <xs:attribute name="trim" type="xs:boolean" />
+                        <xs:attribute name="context" type="xs:string" />
+                        <xs:attribute name="fallThru" type="xs:boolean" />
+                        <xs:attribute name="value" type="xs:string" use="required" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="default">
+                    <xs:annotation>
+                        <xs:documentation>A tag which conditionally evaluates its body if none of its preceeding sibling case tags have been evaluated. This tag must be contained within the body of some switch tag.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType mixed="true">
+                        <xs:sequence>
+                            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                        <xs:attribute name="escapeText" type="xs:boolean" />
+                        <xs:attribute name="trim" type="xs:boolean" />
+                        <xs:attribute name="context" type="xs:string" />
+                        <xs:attribute name="fallThru" type="xs:boolean" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="on" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="thread">
+        <xs:annotation>
+            <xs:documentation>A tag that spawns the contained script in a separate thread</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="file" type="xs:string" />
+            <xs:attribute name="name" type="xs:string" />
+            <xs:attribute name="xmlOutput" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Sets the destination of output</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="useBean">
+        <xs:annotation>
+            <xs:documentation>A tag which instantiates an instance of the given class and then sets the properties on the bean.  The class can be specified via a java.lang.Classinstance or a String which will be used to load the class using either the currentthread's context class loader or the class loader used to load this Jelly library</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="ignoreUnknownProperties" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>If this tag finds an attribute in the XML that's not ignored by org.apache.commons.jelly.tags.core.UseBeanTag.ignoreProperties and isn't a bean property, should it throw an exception?</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:anyAttribute />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="useList">
+        <xs:annotation>
+            <xs:documentation>A tag which creates a List implementation and optionally adds all of the elements identified by the items attribute.  The exact implementation of List can be specified via the class attribute</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="ignoreUnknownProperties" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>If this tag finds an attribute in the XML that's not ignored by org.apache.commons.jelly.tags.core.UseBeanTag.ignoreProperties and isn't a bean property, should it throw an exception?</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:anyAttribute />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="while">
+        <xs:annotation>
+            <xs:documentation>A tag which performs an iteration while the result of an expression is true.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="test" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Sets the expression to evaluate.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="whitespace">
+        <xs:annotation>
+            <xs:documentation>A simple tag used to preserve whitespace inside its body</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

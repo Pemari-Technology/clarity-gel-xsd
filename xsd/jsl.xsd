@@ -1,0 +1,59 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="jelly:jsl" elementFormDefault="qualified">
+
+    <xs:element name="applyTemplates">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="mode" type="xs:string" />
+            <xs:attribute name="select" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="style">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="select" type="xs:string" />
+            <xs:attribute name="stylesheet" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="stylesheet">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="mode" type="xs:string" />
+            <xs:attribute name="select" type="xs:string" />
+            <xs:attribute name="stylesheetOutput" type="xs:string" />
+            <xs:attribute name="var" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="template">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="match" type="xs:string" />
+            <xs:attribute name="mode" type="xs:string" />
+            <xs:attribute name="name" type="xs:string" />
+            <xs:attribute name="priority" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
