@@ -7,6 +7,5 @@ XSD for Clarity GEL Scripts to enable validation of Clarity PPM GEL Scripts in M
 
 ## To do
 * first release and not all of the definitions have been checked to ensure that they correctly either allow or disallow nested elements or text.
-* Check the use="required" is correct for attributes.  Some are done and checked
-* Add either/or assert for relevant attributes.  
-* Add descriptions for the tags.
+* Check the use="required" is correct for attributes.  Some are done and checked 
+* Add descriptions for all the tags.
