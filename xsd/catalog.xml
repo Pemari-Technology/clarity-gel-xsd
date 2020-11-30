@@ -1,14 +1,15 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-    <uri name="jelly:core" uri="./jelly.xsd" />
-    <uri name="jelly:email" uri="./email.xsd" />
-    <uri name="jelly:fmt" uri="./fmt.xsd" />
-    <uri name="jelly:jsl" uri="./jsl.xsd" />
-    <uri name="jelly:log" uri="./log.xsd" />
-    <uri name="jelly:sql" uri="./sql.xsd" />
-    <uri name="jelly:util" uri="./util.xsd" />
-    <uri name="jelly:xml" uri="./xml.xsd" />
-    <uri name="jelly:com.niku.union.gel.GELTagLibrary" uri="./gel.xsd" />
-    <uri name="jelly:com.niku.union.gel.FileTagLibrary" uri="./file.xsd" />
-    <uri name="jelly:com.niku.union.gel.FTPTagLibrary" uri="./ftp.xsd" />
-    <uri name="jelly:com.niku.union.gel.SOAPTagLibrary" uri="./soap.xsd" />
-  </catalog>
+  <uri name="jelly:core" uri="./jelly.xsd" />
+  <uri name="jelly:email" uri="./email.xsd" />
+  <uri name="jelly:fmt" uri="./fmt.xsd" />
+  <uri name="jelly:jsl" uri="./jsl.xsd" />
+  <uri name="jelly:log" uri="./log.xsd" />
+  <uri name="jelly:sql" uri="./sql.xsd" />
+  <uri name="jelly:util" uri="./util.xsd" />
+  <uri name="jelly:xml" uri="./xml.xsd" />
+  <uri name="jelly:com.niku.union.gel.GELTagLibrary" uri="./gel.xsd" />
+  <uri name="jelly:com.niku.union.gel.FileTagLibrary" uri="./file.xsd" />
+  <uri name="jelly:com.niku.union.gel.FTPTagLibrary" uri="./ftp.xsd" />
+  <uri name="jelly:com.niku.union.gel.SOAPTagLibrary" uri="./soap.xsd" />
+  <uri name="jelly:com.niku.union.gel.BPMTagLibrary" uri="./bpm.xsd" />
+</catalog>

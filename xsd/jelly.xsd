@@ -1,6 +1,6 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jelly="jelly:core" targetNamespace="jelly:core" elementFormDefault="qualified">
 
-    <xs:complexType name="argType">
+    <xs:complexType name="arg">
         <xs:annotation>
             <xs:documentation>An argument to a org.apache.commons.jelly.tags.core.NewTag or org.apache.commons.jelly.tags.core.InvokeTag.</xs:documentation>
             <xs:appinfo>This tag MUST be enclosed within an org.apache.commons.jelly.tags.core.ArgTagParentimplementation.</xs:appinfo>
@@ -54,7 +54,7 @@
         </xs:annotation>
         <xs:complexType mixed="true">
             <xs:sequence>
-                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+                <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
             <xs:attribute name="escapeText" type="xs:boolean" />
             <xs:attribute name="trim" type="xs:boolean" />
@@ -336,7 +336,7 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="arg" type="jelly:argType" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="arg" type="jelly:arg" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
             <xs:attribute name="escapeText" type="xs:boolean" />
             <xs:attribute name="trim" type="xs:boolean" />
@@ -367,7 +367,7 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="arg" type="jelly:argType" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="arg" type="jelly:arg" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
             <xs:attribute name="escapeText" type="xs:boolean" />
             <xs:attribute name="trim" type="xs:boolean" />
@@ -428,7 +428,7 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="arg" type="jelly:argType" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="arg" type="jelly:arg" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
             <xs:attribute name="escapeText" type="xs:boolean" />
             <xs:attribute name="trim" type="xs:boolean" />
