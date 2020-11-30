@@ -1,53 +1,48 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="jelly:com.niku.union.gel.FileTagLibrary" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:file="jelly:com.niku.union.gel.FileTagLibrary" targetNamespace="jelly:com.niku.union.gel.FileTagLibrary" elementFormDefault="qualified">
 
-    <xs:element name="column">
+    <xs:complexType name="column">
         <xs:annotation>
             <xs:documentation>Corresponds to a value field in the generated file. Value fields are separated by delimiters as defined in the writefile tag. This tag does not convert the value.</xs:documentation>
         </xs:annotation>
-        <xs:complexType>
-            <xs:attribute name="escapeText" type="xs:boolean" />
-            <xs:attribute name="trim" type="xs:boolean" />
-            <xs:attribute name="context" type="xs:string" />
-            <xs:attribute name="value" type="xs:string" use="required">
-                <xs:annotation>
-                    <xs:documentation>Required. The value to set in the selected cell.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
+        <xs:attribute name="escapeText" type="xs:boolean" />
+        <xs:attribute name="trim" type="xs:boolean" />
+        <xs:attribute name="context" type="xs:string" />
+        <xs:attribute name="value" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>Required. The value to set in the selected cell.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
 
-    <xs:element name="comment">
+    <xs:complexType name="comment" mixed="true">
         <xs:annotation>
             <xs:documentation>Comments cause content to be written to the output file without modification (this is not part of the CSV standard).  For example, if you place the string “# Salary reported, generated on 12-13-2003” at the top of a CSV file, Excel will not ignore that line when it imports this CSV file.</xs:documentation>
         </xs:annotation>
-        <xs:complexType mixed="true">
-            <xs:sequence>
-                <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
-            </xs:sequence>
-            <xs:attribute name="escapeText" type="xs:boolean" />
-            <xs:attribute name="trim" type="xs:boolean" />
-            <xs:attribute name="context" type="xs:string" />
-            <xs:attribute name="value" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>Optional. The comment text. The comment can be set as "value", or to the content text of this tag.  Do not include "commentIndicator" in the comment.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
+        <xs:sequence>
+            <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="escapeText" type="xs:boolean" />
+        <xs:attribute name="trim" type="xs:boolean" />
+        <xs:attribute name="context" type="xs:string" />
+        <xs:attribute name="value" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Optional. The comment text. The comment can be set as "value", or to the content text of this tag.  Do not include "commentIndicator" in the comment.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
 
-    <xs:element name="line">
+    <xs:complexType name="line" mixed="true">
         <xs:annotation>
             <xs:documentation>Specify lines in the generated file. You will then use the f:column tag (see next section) to specify the contents of each column.</xs:documentation>
         </xs:annotation>
-        <xs:complexType mixed="true">
-            <xs:sequence>
-                <xs:element name="column" minOccurs="0" maxOccurs="unbounded" />
-            </xs:sequence>
-            <xs:attribute name="escapeText" type="xs:boolean" />
-            <xs:attribute name="trim" type="xs:boolean" />
-            <xs:attribute name="context" type="xs:string" />
-        </xs:complexType>
-    </xs:element>
+        <xs:sequence>
+            <xs:element name="column" type="file:column" minOccurs="0" maxOccurs="unbounded" />
+            <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="escapeText" type="xs:boolean" />
+        <xs:attribute name="trim" type="xs:boolean" />
+        <xs:attribute name="context" type="xs:string" />
+    </xs:complexType>
 
     <xs:element name="readFile">
         <xs:annotation>
@@ -65,6 +60,45 @@
             <xs:attribute name="inputVar" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>Not required if you specify the fileName attribute. Defines the variable set by the ftp:get tag (from an FTP get operation).</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="commentIndicator" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Optional. Lines that start with the value specified here are ignored.  Default is #</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="delimiter" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Optional. This script is a regular expression that represents the delimiter in each line of text.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="var" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Required. The variable to use to later retrieve the file's contents. This variable has a rows attribute which can be iterated; each row is an array of values in the corresponding file line. Rows can also be used to refer to a certain cell.  For example "${data.rows[0][2]}" refers to the third column in the first row.  This variable can be considered as a representation of the file in memory.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="embedded" type="xs:boolean" use="required">
+                <xs:annotation>
+                    <xs:documentation>Required. This indicates if the values are embedded in double quotes.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="processFileLines">
+        <xs:annotation>
+            <xs:documentation>Read the contents of a delimited file line by line.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="escapeText" type="xs:boolean" />
+            <xs:attribute name="trim" type="xs:boolean" />
+            <xs:attribute name="context" type="xs:string" />
+            <xs:attribute name="filename" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Not required if you specify the inputVar attribute. Defines the source file name.</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="commentIndicator" type="xs:string">
@@ -127,8 +161,9 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="comment" minOccurs="0" maxOccurs="unbounded" />
-                <xs:element name="line" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="comment" type="file:comment" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="line" type="file:line" minOccurs="0" maxOccurs="unbounded" />
+                <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
             <xs:attribute name="escapeText" type="xs:boolean" />
             <xs:attribute name="trim" type="xs:boolean" />
