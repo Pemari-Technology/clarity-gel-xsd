@@ -1,6 +1,8 @@
 # Clarity-GEL-XSD
 XSD for Clarity GEL Scripts to enable validation of Clarity PPM GEL Scripts in Microsoft Visual code and other XML editors.
 
+Note that the XSD does not check the jexl expressions.
+
 ## To use with Microsoft Visual Code
 * install extension XML Language Support by Red Hat
 * add the file [path]xsd/catalog.xml to the XML Catalog via settings in VS Code to either User or Workspace.  Hint: search for XML in settings.
