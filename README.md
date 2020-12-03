@@ -5,7 +5,7 @@ Note that the XSD does not check the jexl expressions.
 
 ## To use with Microsoft Visual Code
 * install extension XML Language Support by Red Hat
-* add the file [path]xsd/catalog.xml to the XML Catalog via settings in VS Code to either User or Workspace.  Hint: search for XML in settings.
+* add the file [path]xsd/catalog.xml to the XML Catalog via settings in VS Code to either User or Workspace.  Hint: search for XML catalogs in settings.
 
 ## To do
 * first release and not all of the definitions have been checked to ensure that they correctly either allow or disallow nested elements or text.
