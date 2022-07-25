@@ -69,6 +69,9 @@
     </xs:element>
 
     <xs:element name="formatDate">
+        <xs:annotation>
+            <xs:documentation>This tag provides a formatted time string which you can use as a part of a file name, appended to a comment line, or inserted into a database.</xs:documentation>
+        </xs:annotation>
         <xs:complexType mixed="true">
             <xs:sequence>
                 <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
@@ -234,6 +237,9 @@
     </xs:element>
 
     <xs:element name="parseDate">
+        <xs:annotation>
+            <xs:documentation>This tag takes a formatted string and generates a date instance.</xs:documentation>
+        </xs:annotation>
         <xs:complexType mixed="true">
             <xs:sequence>
                 <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />

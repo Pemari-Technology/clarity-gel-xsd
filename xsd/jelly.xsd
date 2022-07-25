@@ -73,7 +73,7 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="when">
+                <xs:element name="when" minOccurs="0" maxOccurs="unbounded">
                     <xs:annotation>
                         <xs:documentation>A tag which conditionally evaluates its body based on some condition</xs:documentation>
                     </xs:annotation>
@@ -87,7 +87,7 @@
                         <xs:attribute name="test" type="xs:string" use="required" />
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="otherwise">
+                <xs:element name="otherwise" minOccurs="0" maxOccurs="1">
                     <xs:annotation>
                         <xs:documentation>The otherwise block of a choose/when/otherwise group of tags</xs:documentation>
                     </xs:annotation>
@@ -590,7 +590,7 @@
         </xs:annotation>
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
-                <xs:element name="case">
+                <xs:element name="case" minOccurs="0" maxOccurs="unbounded">
                     <xs:annotation>
                         <xs:documentation>A tag which conditionally evaluates its body if my value attribute equals my ancestor switch tag's "on" attribute.  This tag must be contained within the body of some switch tag.</xs:documentation>
                     </xs:annotation>
@@ -605,9 +605,9 @@
                         <xs:attribute name="value" type="xs:string" use="required" />
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="default">
+                <xs:element name="default" minOccurs="0" maxOccurs="1" >
                     <xs:annotation>
-                        <xs:documentation>A tag which conditionally evaluates its body if none of its preceeding sibling case tags have been evaluated. This tag must be contained within the body of some switch tag.</xs:documentation>
+                        <xs:documentation>A tag which conditionally evaluates its body if none of its preceeding sibling case tags have been evaluated. This tag must be contained within the body of some switch tag and be the last tag.</xs:documentation>
                     </xs:annotation>
                     <xs:complexType mixed="true">
                         <xs:sequence>
